@@ -1,0 +1,71 @@
+Leetcode problem 242) Valid Anagram
+
+input:- s="anagram" t="nagaram"
+Oputput:- True
+
+input:- s="cat" t="car"
+output:- false
+
+input:- s="bat" t="tab"
+output:- true
+
+so here we eill return true if it is a valid anagram and false if it is not
+
+Approach :
+1) here we will create a array of size 26 (total no of alphabets) 
+2) then we will traverse the both string 
+
+     for(int i=0; i<s.length(); i++)
+     {
+         count[s.charAt(i)-'a']++;
+         count[t.charAt(i)-'a']--;
+     }
+
+   So here tahe a example  s="bat" t="tab"
+    count[s.charAt(i)-'a']++; (i.e count[0]++)
+    count[t.charAt(i)-'a']--; (i.e count[19]--)
+
+  so in the end count array will be filled with the values 
+3) so we will traverse the count array and we will see if any count array element is non zero mean it is not an anagram
+
+   for(int i=0; i<count.length; i++)
+   {
+       if(count[i] !=0)
+       {
+          return false;
+       {
+   }
+4) in the enad we will return true 
+
+Code :-
+
+   class Solution {
+    public boolean isAnagram(String s, String t) {
+        
+        if(s.length() <t.length()) return false;
+
+        if(t.length()<s.length()) return false;
+
+        int[] count= new int[26];
+
+        for(int i=0; i<s.length(); i++)
+        {
+            count[s.charAt(i)-'a']++;
+            count[t.charAt(i)-'a']--;
+        }
+
+        for(int i=0; i<count.length; i++)
+        {
+            if(count[i]!=0)
+            {
+                return false;
+            }
+        }
+return true;
+    }
+}
+
+
+
+    
+  
