@@ -1,0 +1,98 @@
+Input: original = [1,2,3,4], m = 2, n = 2
+Output: [[1,2],[3,4]]
+
+Input: original = [1,2,3], m = 1, n = 3
+Output: [[1,2,3]]
+
+Input: original = [1,2], m = 1, n = 1
+Output: []
+
+Here we have to convert the 1D array to 2D array so if here they have given the row and column size
+
+Approach No 1:-
+
+It is simple approch first we have created a 2D array of given m and n size
+then we have travresed the given 1D array and then added the element of the 1D array to 2D array
+Before that the we have to cheack the condition that 
+
+  if(original.length != n*m) return new int[0][0];
+
+  i.e if the 1D array elemets are not equal to the total nof cells present in 2D array then retun a blank array
+
+  code :-
+
+  class Solution {
+    public int[][] construct2DArray(int[] original, int m, int n) {
+         
+        if(original.length != n*m) return new int[0][0];
+       
+        int ans[][]= new int[m][n];
+       
+        int ptr=0;
+        for(int i=0; i<m; i++)
+        {
+            for(int j=0; j<n; j++)
+            {
+                ans[i][j]=original[ptr++];              
+            }
+        }
+        return ans;
+    }
+} 
+
+
+Approach No 2:-
+
+Here we will do the same steps but here we will do it using only one for loop
+So first we will understand how we are doing that
+
+1) check the base condition
+    if(original.length != n*m) return new int[0][0];
+
+2) Then traverse the given original 1D array and we will use here one mathematival formula to locate the cell
+     row= i/n
+     row= i%n
+     Here n is no of columns which is given
+
+     so lets understand how this formula works 
+
+     suppose n=3
+
+     
+i 	row = i / n 	col = i % n	 2D Position (row, col)
+0	     0	             0	         (0, 0)
+1      0	             1	         (0, 1)
+2	     0	             2	         (0, 2)
+3	     1	             0	         (1, 0)
+4	     1	             1	         (1, 1)
+5	     1	             2	         (1, 2)
+
+code:-
+
+class Solution {
+    public int[][] construct2DArray(int[] original, int m, int n) {
+         
+        int ans[][]= new int[m][n];
+
+        if(original.length != n*m) return new int[0][0];
+        
+        for(int i=0; i<original.length; i++)
+        {
+            int row=i/n;
+            int col= i%n;
+            ans[row][col]=original[i];
+        }       
+        return ans;
+    }
+}
+
+
+
+     
+     
+   
+  
+
+
+
+
