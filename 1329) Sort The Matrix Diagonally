@@ -1,0 +1,55 @@
+Here we have to sort the each diagonal of matrix
+
+remeneber the one thing each matrix diagonal start with zero row and zero column 
+
+So here we have to use sort for each diagonal so create a sort method and reuse it
+
+Code :-
+
+class Solution {
+    public int[][] diagonalSort(int[][] mat) {
+        
+        
+        int m=mat.length;
+        int n=mat[0].length;
+
+        for(int col=0; col<n; col++)
+        {
+            sort( mat,0, col, m, n);
+        }
+
+        for(int row=1; row<m; row++)
+        {
+            sort(mat, row, 0, m, n);//to avoid duplicates so we are starting row from 1
+        }
+
+        return mat;      
+    }
+
+    public void sort(int[][]mat, int row, int col, int m, int n)
+    {
+        List<Integer> list= new ArrayList<>();
+        int r=row, c=col;
+
+        while(r<m && c<n)
+        {
+            list.add(mat[r][c]);//here each diagonal element is getting inserted in list
+            r++;
+            c++;
+        }
+
+        Collections.sort(list);
+
+        r=row;
+        c=col;
+        int ind=0;
+        while(r<m && c<n)
+        {
+            mat[r][c]=list.get(ind++);
+            r++;
+            c++;
+        }
+
+
+    }
+}
