@@ -1,0 +1,71 @@
+This question previously asked by Amazon, Microsoft, Google, Flipkart
+
+In this question remove mean in java once you create araay you cant edit sie of that array adter declaring it
+so here we have to sort array by unique elements and where our sorting is done we have to return +1 index 
+example :-
+Input: nums = [1,1,2]
+Output: 2, nums = [1,2,_]
+Explanation: Your functions should return k = 2, with the first two elements of nums being 1 and 2 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+
+why we have to do that because of this logic-
+int[] nums = [...]; // Input array
+int[] expectedNums = [...]; // The expected answer with correct length
+
+int k = removeDuplicates(nums); // Calls your implementation
+
+assert k == expectedNums.length;
+for (int i = 0; i < k; i++) {
+    assert nums[i] == expectedNums[i];
+}
+
+So lets code it :-
+
+java code-
+
+class Solution
+{
+ public int removeDuplicates(int[] nums)
+  {
+    int n=nums.length;
+    int remeoveDuplicates=0;
+
+    for(int i=0; i<n; i++)
+      {
+          if(nums[i]!=nums[removeDuplicates])
+            {
+                 removeDuplicates++;
+                 nums[removeDuplicates]=nums[i];
+            }
+      }
+    return removeDuplicates+1;
+    }
+  }
+
+Dry run :-
+
+Initial values:
+removeDuplicates = 0, nums = [1, 1, 2, 3, 3]
+
+Iteration 1 (i = 0):
+
+nums[i] == nums[removeDuplicates] → No action.
+Iteration 2 (i = 1):
+
+nums[i] == nums[removeDuplicates] → No action.
+Iteration 3 (i = 2):
+
+nums[i] != nums[removeDuplicates] → Unique element found (2).
+Increment removeDuplicates to 1.
+Update nums[removeDuplicates] = nums[i]:
+nums = [1, 2, 2, 3, 3]
+Iteration 4 (i = 3):
+
+nums[i] != nums[removeDuplicates] → Unique element found (3).
+Increment removeDuplicates to 2.
+Update nums[removeDuplicates] = nums[i]:
+nums = [1, 2, 3, 3, 3]
+Iteration 5 (i = 4):
+
+nums[i] == nums[removeDuplicates] → No action.
+  
