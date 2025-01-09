@@ -1,0 +1,33 @@
+This question previously asked by BlackRock, Zomato, Microsoft, Walmart
+
+Here we have the nums array and target we need to find which 2 numbers can make target and return their indexes
+
+As we can see in the give test case 
+
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+
+So we will see how we can code it:-
+
+Java code-
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        
+        int[] ans= new int[2];
+
+        for(int i=0; i<nums.length; i++)
+        {
+            for(int j=i+1; j<nums.length; j++)
+            {
+                if(nums[i]+nums[j]==target)
+                {
+                    ans[0]=i;
+                    ans[1]=j;
+                }
+            }
+        }
+        return ans;
+    }
+}
