@@ -1,1 +1,55 @@
+This problem asked by Google, Microsoft, Uber, Bloomberg, Apple, ByteDance, Adobe, Meta(Facebook), Goldman Sachs
+
+This problem is extension of previous problem which is 2 sum
+Here we have to find the triplets of those sum=0 
+here indices should be unique not a element
+
+Here we need to sort the array initially and here all list present in list are also unique.
+
+Code java :-
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        
+        int n=nums.length;
+
+        if(n<3 || nums==null) return new ArrayList<>();
+        Arrays.sort(nums);
+
+        int sum=0;
+        //result should be unique
+        Set<List<Integer>> result= new HashSet<>();
+
+        for(int i=0; i<n; i++)
+        {
+           //here we will taverese from i+1
+            int left=i+1; 
+            int right=n-1;
+
+            while(left<right)
+            {
+                sum=nums[i]+nums[left]+nums[right];
+                if(sum==0)
+                {
+                    //here we are adding these elemets of array as list using in built method
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    left++;
+                    right--;
+                }
+                else if(sum>0)
+                {
+                    //if sum is getting above zero mean right pointer should move back because array is sorted
+                    right--;
+                }
+                else
+                {
+                   //if sum is getting below zero mean we should move forward because array is sorted 
+                    left++;
+                }
+            }
+        }
+        //here we returng the List<List<Integer>>
+        return new ArrayList<>(result);
+    }
+}
 
