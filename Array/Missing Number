@@ -1,0 +1,48 @@
+
+Here we have nums array which contain integer values and we have to retun missing number from it.
+
+Input: nums = [3,0,1]
+Output: 2
+
+So first we will find the size of array
+n=3
+
+now using for loop we will calculate the sum of all elements present in nums
+
+sum=0
+for(i=0 to i=n)
+{
+ sum+=nums[i];
+}
+
+Now the third important thing is the formula of sum of first n natural numbers 
+
+sum of N no = (n*(n+1))/2;
+
+this formula will give first n natural numbers 
+
+sum of 3 numnbers is= 3*(3+1)/2
+                    =3*(4)/2
+                     = 12/2
+                    =6
+
+now in the end we will substract sum from the sum of N number
+it will give us our result
+
+java code:-
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        
+        int n=nums.length;
+        int sum=0;
+        for(int i=0; i<n; i++)
+        {
+            sum+=nums[i];
+        }
+
+        int exceptSum=(n*(n+1))/2;
+
+        return exceptSum-sum;
+    }
+}
