@@ -1,0 +1,94 @@
+
+There are 2 approach can solve problem -
+   1) Moore's voting Algorithm
+   2) Using HashMap
+
+1) Moore's voting Algorithm :-
+So, First we are going solve it to using Moore's voting algorithm.
+
+In this problem we have given the nums array 
+in this array we have to return such a element which occured more than n/2 times (here n is length of nums array)
+
+So we eill use moore's voting alorithm to solve this
+
+Java code for Moore's Voting Algorithm :-
+
+class Solution {
+    public int majorityElement(int[] nums) {
+
+       // here first we are initializing ele as nums[0]
+        int ele=nums[0];
+        //and we take this freq element to calculating ele's frequency
+        int freq=0;
+
+        //Now we will traverse over the nums array
+        for(int i=0; i<nums.length; i++)
+        {
+            //when the freq becomes zero that time we eill take whatever element comes that as ele and set freq as 1
+            if(freq==0)
+            {
+               ele=nums[i];
+               freq=1;
+            }//when we get the ele same as nums[i] that time we will incrementing the freq
+            else if(ele==nums[i])
+            {
+                freq++;
+            //when we get the different element then we will decrementing the freq by one thats why when freq become zero that time it we  will set ele as that time occured element
+            else
+            {
+                freq--;
+            }
+        }
+
+         //Again we will use for loopto calculate the freq of that ele
+         freq=0;
+        for(int i=0; i<nums.length; i++)
+        {
+            if(nums[i]==ele)
+            {
+                freq++;
+            }
+        }
+        //and if that freq is more than the n/2 that time we will return the that ele
+        if(freq>nums.length/2) return ele;
+        return -1; //or ele we will retun -1 because there is no majaority
+    }
+}
+
+2) Using HashMap :-
+
+Fo here as i said in approach no 1 we have nums array 
+
+So here we will use HashMap<Integer, Integer>
+
+so lets see the java code for this approach :-
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        
+        HashMap<Integer, Integer> mp= new HashMap<>();
+
+        for(int i=0; i<nums.length; i++)
+        {
+            mp.put(nums[i], mp.getOrDefault(nums[i],0)+1);
+        }
+
+        for(Map.Entry<Integer, Integer> e: mp.entrySet())
+        {
+            int ele=e.getKey();
+            int freq=e.getValue();
+
+            if(freq>nums.length/2) return ele;
+        }
+        return -1;
+    }
+}
+
+
+So lets discuss the time complexity and space co0mplexity
+
+                              Time Complexity           Space Complexity
+
+Moore's Voting Algorithm       O(n)+O(n)=O(n)                 O(1)
+
+Using HashMap                   O(n)+O(n)=O(n)                 O(n) (Because we used hashmap)
