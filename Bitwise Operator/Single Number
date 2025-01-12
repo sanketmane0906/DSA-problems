@@ -1,0 +1,62 @@
+There is a nums array is given and we have to retun the which number come the only once time
+
+Input: nums = [2,2,1]
+Output: 1
+
+There are multiple approaches are their to solve this problem like you can solve it using calculating frequency.
+But there is another best approach is their which gives us answer in constant space i mean in O(1) space complexity.
+
+So here we will use the XOR operator.
+
+What is XOR operator?
+The XOR (Exclusive OR) operator is a binary operator that takes two inputs and returns true (or 1) only when the inputs are different. If both inputs are the same, it returns false (or 0).
+
+Java Code :-
+1)Using XOR Operator -
+
+public class Solution
+{
+  public int singleNumber(int[] nums)
+  {
+  
+    int n= nums.length;
+    int ans=0;
+    
+    for(int i=0; i<n; i++)
+    {
+        ans^=nums[i];    
+    }
+    return ans;
+  
+  }
+}
+
+2) Using HashMap -
+
+public class Solution
+{
+public int singleNum(int[] nums)
+{
+   HashMap<Integer, Integer> mp= new HashMap<>();
+
+        for(int i=0; i<nums.length; i++)
+        {
+             mp.put(nums[i], mp.getOrDefault(nums[i], 0)+1);
+        }
+
+        int ans=0;
+
+        for(Map.Entry<Integer,Integer> e: mp.entrySet())
+        {
+            int ele=e.getKey();
+            int freq=e.getValue();
+
+            if(freq==1)
+            {
+              ans=ele;
+            }
+        }
+        return ans;
+}
+}
+
