@@ -1,0 +1,44 @@
+In this problem they provide us the array of integers of size n and k (size of window) and threshold
+
+We have to use sliding window algorithm 
+
+Threshold = (length of array)-(size of window)
+
+So here we have to return count of those subrray whose average of sum is greater than or equal to threshold
+
+sum/k>=threshold OR sum>=threshold*k
+
+So lets code it :-
+
+class Solution {
+    public int numOfSubarrays(int[] arr, int k, int threshold) {
+        int n=arr.length;
+        int sum=0;
+        int count=0;
+
+        for(int i=0; i<k; i++)
+        {
+            sum+=arr[i];
+        }
+        //here we have to add this condition because we have to check this for first subarrays sum
+        if(sum>=threshold*k) count++;
+
+        int s=1;
+        int e=k;
+
+        while(e<n)//while loop will run till the end reaches end
+        {
+            //here first element is geting substarcted
+            sum-=arr[s-1];
+
+           //here new element of window is getting edited (In short window is moving short)
+            sum+=arr[e];
+
+            if(sum>=threshold*k) count++;
+
+            s++;
+            e++;
+        }
+        return count;
+    }
+}
