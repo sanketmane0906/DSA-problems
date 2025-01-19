@@ -1,0 +1,116 @@
+In this problem we have given the arrays and it contains 0's, 1's and 2's only and we have to sort them 0's will be start part then 1's in  iddle part and 2's will be in last part of array.
+
+So for this problem we have to use duch national flag algorithm
+In this algorithm we will sort colors according to their respective position 
+
+So lets code it and in dry run we will understand what's happening :-
+
+public class Solution
+{
+public void swap(int[] nums, int pos1, int pos2)
+    {
+        int temp=nums[pos1];
+        nums[pos1]=nums[pos2];
+        nums[pos2]=temp;
+    }
+    public void sortColors(int[] nums)
+    {
+        int start=0;
+        int mid=0;
+        int end=nums.length-1;
+
+        while(mid<=end)
+        {
+            switch (nums[mid])     //here we are travelling with the help of mid 
+            {
+            case 0:                //when we get 0 that time we swapping thatelemt with start and incrementing start++ and mid++
+                swap(nums, start, mid);
+                start++;
+                mid++;
+                break;
+
+            case 1:               //when we got 1 that time we just incrementing mid++ becuase 1 should be in mid place
+                mid++;
+                break;
+
+            case 2:              //when we got 2 that time we will swap that 2 with end and decremening the end--
+                swap(nums, mid, end);
+                end--;
+                break;
+            }
+    }
+}
+}
+
+
+Let's dry run the code step by step using an example input array.
+
+Input:
+nums = [2, 0, 2, 1, 1, 0]
+
+Initial Variables:
+start = 0
+mid = 0
+end = 5 (length of array - 1)
+Iteration 1:
+Condition: mid <= end (0 <= 5 is true)
+Value at nums[mid]: nums[0] = 2
+
+case 2:
+Swap nums[mid] and nums[end] → Swap nums[0] and nums[5]:
+nums = [0, 0, 2, 1, 1, 2]
+Decrement end: end = 4
+Do not increment mid (recheck the new nums[mid]).
+Iteration 2:
+Condition: mid <= end (0 <= 4 is true)
+Value at nums[mid]: nums[0] = 0
+
+case 0:
+Swap nums[mid] and nums[start] → Swap nums[0] and nums[0] (no change):
+nums = [0, 0, 2, 1, 1, 2]
+Increment both start and mid: start = 1, mid = 1.
+Iteration 3:
+Condition: mid <= end (1 <= 4 is true)
+Value at nums[mid]: nums[1] = 0
+
+case 0:
+Swap nums[mid] and nums[start] → Swap nums[1] and nums[1] (no change):
+nums = [0, 0, 2, 1, 1, 2]
+Increment both start and mid: start = 2, mid = 2.
+Iteration 4:
+Condition: mid <= end (2 <= 4 is true)
+Value at nums[mid]: nums[2] = 2
+
+case 2:
+Swap nums[mid] and nums[end] → Swap nums[2] and nums[4]:
+nums = [0, 0, 1, 1, 2, 2]
+Decrement end: end = 3
+Do not increment mid (recheck the new nums[mid]).
+Iteration 5:
+Condition: mid <= end (2 <= 3 is true)
+Value at nums[mid]: nums[2] = 1
+
+case 1:
+Do nothing, just increment mid: mid = 3.
+Iteration 6:
+Condition: mid <= end (3 <= 3 is true)
+Value at nums[mid]: nums[3] = 1
+
+case 1:
+Do nothing, just increment mid: mid = 4.
+Iteration 7:
+Condition: mid <= end (4 <= 3 is false)
+
+The loop terminates.
+
+Final Output:
+nums = [0, 0, 1, 1, 2, 2]
+
+Key Observations:
+All 0s are at the beginning.
+All 1s are in the middle.
+All 2s are at the end.
+The array is now sorted as required.
+
+
+
