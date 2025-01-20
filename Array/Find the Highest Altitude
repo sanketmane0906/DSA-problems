@@ -1,0 +1,63 @@
+In this problem we have given the nums array which contains the integer values.
+It is possible numbers are negative also and positive also
+
+So we will have to find thge prefix sum and which point the sum become maximum store it and return it.
+
+example :-
+gain = [-5,1,5,0,-7]
+
+So lets dry run 
+                  -5      1       5        0        -7
+
+initially curr_sum=0 and max=0 so  lest iterate over given array 
+
+
+                     i=0
+                     curr+=gain[i]
+                     curr=-5
+                     max=Math.max(curr, max)
+                     max=Math.max(-5, 0) = 0
+
+                    i=1
+                    curr+=gain[i]
+                    curr=-4 (-5+1)
+                    max=Math.max(curr, max)
+                    max=Math.max(-4,0)=0
+
+                    i=2
+                    curr+=gain[2]
+                    curr=1
+                    max=Math.max(curr, max)
+                    max=Math.max(1, 0) = 1
+
+                    i=3
+                    curr+=gain[3]
+                    curr=1
+                    max=Math.max(curr, max)
+                    max=Math.max(1, 1) = 1
+
+                    i=4
+                    curr+=gain[4]
+                    curr=-6
+                    max=Math.max(curr, max)
+                    max=Math.max(1, -6) = 1
+
+
+So lets code :-
+
+public class Solution 
+{
+  public int highestAltitude(int[] nums)
+  {
+    int n=gain.length;
+          int curr=0;
+          int max=0;
+  
+          for(int i=0; i<n; i++)
+          {
+              curr+=gain[i];
+              max=Math.max(max, curr);
+          }
+          return max;
+  }
+}
