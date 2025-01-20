@@ -1,0 +1,39 @@
+This question asked by :- Uber, VMware, Goldman Sachs, Netflix, Adobe, Microsoft, Cisco, Atlassian, Intuit
+
+In this problem we have given the nums array and we have to retun the maximum difference between two pairs product
+
+mean (a*b)-(c*d)
+
+So here we have the array opf integers
+
+nums = [5,6,2,7,4]
+
+so just observe which two numbers will give you the maximum product so its obevious greater values product if high 
+So vice versa the product of smaller number is small
+
+so product of 2 and 4 is 8
+and product of 7 and 6 is 42
+
+and difference is 42-8 is 34
+
+So for that we will use in built sorting function so it will optimize time complexity because we dont need to sort the array
+
+so lets code it :-
+
+public class Solution
+{
+  public int maximumProduct(int[] nums)
+  {
+          Arrays.sort(nums);
+  
+          int n=nums.length-1;
+  
+          int firstPairEle1=nums[0];
+          int firstPairEle2=nums[1];
+  
+          int secondPairEle1=nums[n];
+          int secondPairEle2=nums[n-1];
+  
+          return (secondPairEle1 * secondPairEle2)-(firstPairEle1 * firstPairEle2);
+  }
+}
