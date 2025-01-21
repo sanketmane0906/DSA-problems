@@ -1,0 +1,39 @@
+In this problem we have the string and k which mean k times operation we can do to make that character is max times occuring.
+
+s = "ABAB", k = 2
+Output :- 4 (AAAA/BBBB)
+
+So lest code it here :-
+
+public class Solution
+{
+  public int maxrepeatingChar(String s, int k)
+  {
+        int n=s.length();
+        int start=0;
+        int maxFreq=0;
+        int maxLen=0;
+
+        int[] freq= new int[26];
+
+        for(int end=0; end<n; end++)
+        {
+            freq[s.charAt(end)-'A']++;
+
+            maxFreq=Math.max(maxFreq, freq[s.charAt(end)-'A']);
+         
+            if((end-start+1)-maxFreq>k)//if no of changes are more than given then reduce window size
+            {
+                freq[s.charAt(start)-'A']--;
+                start++;
+            }
+
+            maxLen=Math.max(maxLen, (end-start+1));
+        }
+        return maxLen;
+ }
+}
+
+
+Here, if ((end - start + 1) - maxFreq > k) checks if the number of replacements required to make all characters in the window the same exceeds k. if it exceed then it reduces the window size by reducing start char freq and incrementing start
+
