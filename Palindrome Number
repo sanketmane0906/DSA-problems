@@ -1,0 +1,28 @@
+In this problem we have a integer we have to return it is palindrome or not.
+
+So number is palindrome when you read it from left to right and right to left both are same 
+example - 121 is a palindrome number
+
+So here if number is negative so wehave to return false because -ve numbers can not be palindrome.
+
+So lets code it :-
+
+public class Solution
+{
+    public boolean isPalindrome(int x)
+    {
+                if(x<0) return false;
+                int y=x;
+                int rem=0;
+    
+                while(y>0)
+                {
+                    int no=y%10;
+                    rem=rem*10+no;
+                    y=y/10;
+                }
+    
+                if(rem==x) return true;
+                return false;
+    }
+}
