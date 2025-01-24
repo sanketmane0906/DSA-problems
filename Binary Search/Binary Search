@@ -1,0 +1,43 @@
+Binary search is also called a half interval search.
+
+In binary search input data must be sorted.
+
+And the most important thing is binaryu search has more efficient time complexity.
+
+Linear search has time complexity O(n) 
+Binary search has time complexity O(nlogn)
+
+Binary search has faster than linear search
+
+Binary search code :-
+
+Class Solution
+{
+    public int binarySearch(int nums[], int target)
+    {
+       int n=nums.length;
+      
+      int left=0;
+      int right=n-1;
+      
+      while(left<=right)
+      {
+          int mid=(left+right)/2;
+          
+          if(nums[mid]==target)
+          {
+          return mid;
+          }
+          else if(nums[mid]>target)
+          {
+          right=mid-1;
+          }
+          else
+          {
+          left=mid+1;
+          }
+      }
+      return -1;
+    }
+}
+
