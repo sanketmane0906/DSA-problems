@@ -1,0 +1,60 @@
+Here we have given a numa array we have to retun such array index who's greater than previous elemnt and also next element.
+
+So lets see,
+
+nums=[1,2,3,4,5,6,7,8,5,1]
+So lets this is example so you can see here 
+
+index ->  0  1  2  3  4  5  6  7  8  9
+element-> 1  2  3  4  5  6  7  8  5  1
+
+Here you can see from index 0 to index 7 here elements are in increment order and from index 8 to 9 are indecresing order
+
+So answer will be the index 7 because nums[6]<nums[7] && nums[8]<nums[6]
+
+Edge Cases :-
+
+1) what if there is only one elemnt then we have to retun its index
+  if(nums.length==1) return 0;
+
+2)If there are only two elemnts are existed then
+   if(nums[0]>nums[1]) return 0;
+
+3) What if last element is greater than second last element 
+   if(nums[n-1]>nums[n-2]) return n-1;
+
+So we have to solve this problem using binary search so lets see how we can do it :-
+
+public class Solution
+{
+    public int findPeak(int[] nums)
+    {
+            int n=nums.length;
+    
+            if(n==1) return 0;
+            if(nums[0]>nums[1]) return 0;
+            if(nums[n-1]>nums[n-2]) return n-1;
+    
+            int left=1;
+            int right=n-2;
+    
+            while(left<=right)
+            {
+                int mid=(left+right)/2;
+    
+                if(nums[mid]>nums[mid-1] && nums[mid]>nums[mid+1])
+                {
+                    return mid;
+                }
+                else if(nums[mid]>nums[mid+1])
+                {
+                    right=mid-1;
+                }
+                else
+                {
+                    left=mid+1;
+                }
+            }
+            return -1;
+    }
+}
