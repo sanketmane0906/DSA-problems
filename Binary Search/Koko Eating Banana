@@ -1,0 +1,96 @@
+This question is previously asked by Google, Microsoft, Amazon and many more organization
+
+In this example we have given the piles which contain no of banana present at the each pile which is in array form and we have given hour 
+
+Mean in that hours koko has to eat those all bananas.
+
+Suppose
+
+piles=[3,6,7,11] h=8
+
+                    3   6   7   11 
+
+1 banana per hour   3   6   7   11 total=27 hours which greater than 8 hour 
+
+if koko eat 1 banana per hour then we need 27 hours
+
+                    3   6   7   11 
+
+1 banana per hour   2   3   4   6   total=15 hours which greater than 8 hour 
+
+
+if koko eat 2 banana per hour then koko need 15 hours
+
+                    3   6   7   11 
+
+1 banana per hour   1   2   3   4 total=10 hours which greater than 8 hour 
+
+
+if koko eat 3 banana per hour then koko need 10 hours
+
+                    3   6   7   11 
+
+1 banana per hour   1   2   2   3 total=8 hours which equal to given hour  
+
+
+if koko eat 4 bana per hour then koko need 8 hour 
+
+so answer will be 4
+
+So lets code :-
+
+class Solution {
+    public int maxElement(int[] nums)
+    {
+        int maxEle=Integer.MIN_VALUE;
+
+        for(int i=0; i<nums.length; i++)
+        {
+            maxEle=Math.max(nums[i], maxEle);
+        }
+        return maxEle;
+    }
+    public int totalSpeed(int hr, int[]piles)
+    {
+        int totalH=0;
+
+        for(int i=0; i<piles.length; i++)
+        {
+            totalH+=Math.ceil((double)piles[i]/(double)hr);
+        }
+        return totalH;
+    }
+    public int minEatingSpeed(int[] piles, int h) {
+        
+        int low=1; //we taking 1 because koko can eat 1 banana per hour atleast
+        int high=maxElement(piles); //high will be maximum no in piles because he can eat that amount of bana in 1 hour
+
+        while(low<=high)
+        {
+            int mid=(low+high)/2;
+
+            int totalH=totalSpeed(mid, piles);
+            /*
+            
+            Equality condition in binary search:
+
+               In your binary search, if totalH == h, you are directly returning mid. 
+               However, the problem likely requires you to find the minimum eating speed at which the job can be done in h hours or less. 
+               By immediately returning mid, you could miss a smaller valid speed.
+            
+            
+         */
+            if(totalH<=h)
+            {
+                high=mid-1;
+                
+            }
+            else
+            {
+                low=mid+1;
+                
+            }
+        }
+        return low;
+    }
+}
