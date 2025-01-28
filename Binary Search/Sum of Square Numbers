@@ -1,0 +1,63 @@
+Sum of square of two numbers
+
+Given a non-negative integer c, decide whether there're two integers a and b such that a2 + b2 = c.
+
+In this problem we have given one number and we have to make this number by square sum of two numbers,
+if it is possible then return true otherwise return false
+
+example :-
+
+c=5
+
+(1*1)+(2*2)=5 
+return true because we can make the 5 by square of 1 and square of 2
+
+so we can solve it by using binary search logic so lets see,
+
+here we will take left=0
+
+and right as a sqrt(c) because if you take c as it is so square of the right will be larger so it may give time complexity so 
+
+If you see here 
+
+suppose c=89
+
+left=0 and right=89 if we took as it is so square will be larger so  we will take right as 9 (sqrt of 89)
+
+left=0       right=9
+0*0=0        9*9= 81     0+81=81<89 so left++
+1*1=1        9*9=81      1+81=82<89 so left++
+2*2=4        9*9=81      4+81=85<89 so left++
+3*3=9        9*9=81      9+81=90>89            so right++
+3*3=9        8*8=64      9+64=73<89 so left++
+4*4=16       8*8=64      16+64=80<89 so left++
+5*5=25       8*8=64      25+64=89=89 
+so we got our answer we will return true      
+ 
+So lets code :-
+
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        
+       long left=0;
+       long right=(long)Math.sqrt(c);
+       
+        while(left<=right)
+        {
+            long val=left*left+right*right;
+
+            if(val==c) return true;
+
+            if(val>c)
+            {
+                right--;
+            }
+            else
+            {
+                left++;
+            }
+        }
+        return false;
+
+    }
+}
