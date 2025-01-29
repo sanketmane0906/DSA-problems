@@ -1,0 +1,69 @@
+This question has been asked by the Amazon 
+
+Here the packages size is given in array and days required to ship those packages are also given so we have to return the capacity of that ship which is minimum 
+
+So lest begin the problem 
+
+Here we will take maximum element of array as left and sum of the array as the right.
+
+so we will apply binary search on that range.
+
+Now we need the one function who can calculate the days re required to ship that all consignment.
+
+So in that function we will pass weights array and the capacity
+
+using for loop we will traverse and add the weight on ship in the moment that weight become more than the capacity that time we will increment the day and on that new day we will assign the that exceeded weight on ship in the end we will return the days
+
+So lets code :-
+
+class Solution {
+    public int daysRequired(int [] weights, int cap)
+    {
+        int days=1;
+        int weightOnShip=0;
+
+        for(int i=0; i<weights.length; i++)
+        {
+            if(weightOnShip+weights[i]> cap) //when weight become more than the capacity then we will go to next day and on that day first we will add that weight which we failed to ship on previous day
+            {
+                days+=1;
+                weightOnShip=weights[i];
+            }
+            else
+            {
+                weightOnShip+=weights[i];
+            }
+        }
+        return days;
+    }
+    public int shipWithinDays(int[] weights, int days) {
+       
+       int min_cap= Integer.MIN_VALUE;      //min capacity will be maximum no of array
+       int max_cap=0;                       //maximum cvapacity will be sum of array
+
+       for(int i=0; i<weights.length; i++)
+       {
+           min_cap= Math.max(min_cap, weights[i]);
+           max_cap+=weights[i];
+       }
+
+       int s=min_cap;
+       int e=max_cap;
+
+       while(s<=e)
+       {
+           int mid=e+(s-e)/2;
+           int daysRequired=daysRequired(weights, mid);
+
+           if(daysRequired<=days)
+           {
+               e=mid-1;
+           }
+           else
+           {
+               s=mid+1;
+           }
+       }
+        return s;
+    }
+}
