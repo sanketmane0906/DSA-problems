@@ -1,0 +1,11 @@
+What is recursion?
+Recursion is a programming technique where a functionn calls itself to solve a problem. 
+It breaks down complex problems into smaller subproblems of the same type.
+This continues until a base condition is met, at which point the recursion stops.
+
+
+* Key Components of Recursion :-
+Base Case: The condition where recursion stops.
+Recursive Case: The functionn calls itself with a smaller or simpler input.
+
+
