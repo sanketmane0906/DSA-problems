@@ -1,0 +1,81 @@
+In this problem we have array which tells the that flowers bloom day.
+
+And also we have given m and k
+
+m means no of bouquets
+k means flower
+
+So here one base condition is present which is 
+
+if we have to make 2 (m) bouquets and we have to make that one bouquets of 3 (k) flower. That mean in array we need 6 flowers in our array if there are les no of flowers then we have to return the -1.
+
+So lets code it and in code we will explain other stuff-
+
+class Solution {
+
+	public boolean possible(int[] bloomDay, int day, int m, int k)
+	{
+                 //count will store the nof of flowers bloomed on that day
+		int cnt=0;
+
+//and it will store how many bouquets we can make
+		int  noOfB=0;
+
+		for(int i=0; i<bloomDay.length; i++)
+		{
+			if(bloomDay[i]<=day)
+			{
+				cnt++;
+			}
+			else
+			{
+//here we are just storing how many bouquets we can make
+				noOfB+=(cnt/k);
+				cnt=0;
+			}
+			
+		}
+//The second calculation ensures that any remaining bloomed flowers at the end of the array are counted. 
+//If we remove it, bouquets formed at the end of the list (if no unbloomed flower breaks them) would be ignored.		
+                        noOfB+=(cnt/k);
+			return noOfB >= m;
+	}
+	public int minDays(int[] bloomDay, int m, int k) {
+		long var= (long) m * k;
+		if(var>bloomDay.length)
+		return -1;
+
+                //here we have to make bouquets so we need to take care of bloom days
+               
+                //here left of binary search is minimum day in bloomday array 
+                //and maximum element is right limit of binary search
+		int min= Integer.MAX_VALUE;
+		int max=Integer.MIN_VALUE;
+
+		for(int i=0; i<bloomDay.length; i++)
+		{
+			min=Math.min(min, bloomDay[i]);
+			max=Math.max(max, bloomDay[i]);
+		}
+		int low=min;
+		int high=max;
+
+		while(low<=high)
+		{
+			int mid=(low+high)/2;
+                        
+//at mid if we can make the bonquets that mean we need to reduce right limit
+//because we need to return the minimum no of days to make that bouquets
+			if(possible(bloomDay,mid,m,k))
+			{
+				high=mid-1;
+
+			}
+			else{
+				low=mid+1;
+			}
+			
+		}
+		return low;
+	}
+}
