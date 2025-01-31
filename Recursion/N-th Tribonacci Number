@@ -1,0 +1,51 @@
+Sure! The problem you're working on is about finding the N-th number in the Tribonacci sequence. 
+The Tribonacci sequence is similar to the Fibonacci sequence, but instead of starting with two predetermined numbers, 
+it starts with three: 0, 1, and 1. Each subsequent number in the sequence is the sum of the previous three numbers.
+
+Here's a simple breakdown:
+
+The 0th Tribonacci number is 0.
+
+The 1st Tribonacci number is 1.
+
+The 2nd Tribonacci number is 1.
+
+For any number n greater than 2, the N-th Tribonacci number is the sum of the (N-1)-th, (N-2)-th, and (N-3)-th Tribonacci numbers.
+
+So, if you want to find the N-th Tribonacci number, you start with the first three numbers (0, 1, 1) and 
+keep adding the last three numbers to get the next one until you reach the N-th number.
+
+For example:
+
+The 3rd Tribonacci number is 0 + 1 + 1 = 2.
+
+The 4th Tribonacci number is 1 + 1 + 2 = 4.
+
+The 5th Tribonacci number is 1 + 2 + 4 = 7.
+
+Lets code it:-
+
+class Solution {
+    public int tribonacci(int n) {
+        if(n==0)
+        return 0;
+
+        if(n==1)
+        return 1;
+
+        if(n==2)
+        return 1;
+
+        int[] ans=new int[n+1];
+        ans[0]=0;
+        ans[1]=1;
+        ans[2]=1;
+
+        for(int i=3; i<=n; i++)
+        {
+            ans[i]=ans[i-1]+ ans[i-2]+ ans[i-3];
+        }
+        return ans[n];
+        
+    }
+}
