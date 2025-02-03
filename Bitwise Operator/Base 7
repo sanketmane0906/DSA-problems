@@ -1,0 +1,45 @@
+
+Given an integer num, return a string representing its value in base 7.
+
+Example 1:
+Input: num = 100
+Output: "202"
+(100 in base 7 is 202 because: 100 ÷ 7 = 14 remainder 2, 14 ÷ 7 = 2 remainder 0, 2 ÷ 7 = 0 remainder 2 → 202)
+
+Example 2:
+Input: num = -7
+Output: "-10"
+(-7 in base 7 is "-10" because: 7 ÷ 7 = 1 remainder 0, 1 ÷ 7 = 0 remainder 1 → 10, and adding the negative sign makes it "-10")
+
+Solution Approach:
+Steps to Convert to Base 7:
+
+i) If num is 0, return "0".
+ii) Take the absolute value of num to work with positive numbers.
+iii) Extract the last digit using % 7 and keep dividing num by 7 until it becomes 0.
+iv) Store the digits in reverse order (since we extract from least significant to most significant).
+v) If the original number was negative, add "-" at the front.
+
+Lets code it :-
+
+class Solution {
+    public String convertToBase7(int num) {
+        
+        int n=num;
+
+        if(n==0) return "0";
+
+        StringBuilder sb= new StringBuilder();
+
+        while(Math.abs(n)>0)
+        {
+            int digit=Math.abs(n)%7;
+            sb.insert(0, digit);
+            n=n/7;
+        }
+
+        if(num<0) sb.insert(0, "-"); // if number is -ve so we will add -ve sign in the start
+
+        return sb.toString();
+    }
+}
