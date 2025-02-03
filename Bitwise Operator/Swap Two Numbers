@@ -1,0 +1,58 @@
+Swap of two numbers 
+
+if a=10 and b=9 
+
+So here we can swap it using the using xor operator
+
+so first convert decimal number to binary number.
+
+a=1010
+b=1001
+
+Step 1:-
+          a=a^b
+
+         1  0  1  0
+         1  0  0  1
+      __________________
+         0  0  1  1       ==3 in decimal
+
+so a become 3
+
+
+Step 2:-
+            b=a^b
+
+                   
+           0  0  1  1
+           1  0  0  1
+     _____________________
+           1  0  1  0      ==10  
+
+so b become 10
+
+Step 3:-
+           a=a^b
+
+          0  0  1  1
+          1  0  1  0
+        ________________
+          1  0  0  1    ==9
+
+So a become 9
+
+So lets code it :-
+
+  class Solution
+  {
+      public void swapNumbetrs(int a, int b)
+      {
+        a=a^b;
+        b=a^b;
+        a=a^b;
+      }
+  }
+
+
+ 
+          
