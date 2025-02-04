@@ -1,0 +1,61 @@
+In this problem we have given the array in that array each number occurs 3 times except one element so we have to return that element which is occurred only once
+
+example:-
+[2,2,3,2]
+
+so output will be 3
+
+So lets code it :-
+
+class Solution
+{
+	public int singleNumber(int[] nums)
+	{
+		int ones=0;
+		int twos=0;
+
+		for(int num: nums)
+		{
+			ones=(ones^num)&(~twos);
+			twos=(twos^num)&(~ones);
+		}
+		return ones;
+	}
+}
+
+The solution efficiently finds the unique element using bitwise operations. It maintains two variables (ones and twos) to track the bits of numbers appearing once and twice.
+
+Key Idea:
+	ones will store the bits appearing once.
+	twos will store the bits appearing twice.
+	If a number appears three times, it will be removed 	from both ones and twos.
+
+Step-by-Step Working:
+
+	For each number num in nums, update ones and twos as 	follows:
+
+
+	ones = (ones ^ num) & (~twos);
+	twos = (twos ^ num) & (~ones);
+
+	ones ^ num: Toggles the bits of ones based on num.
+
+	(~twos): Ensures that if a bit is set in twos, it is 	reset in ones.
+
+	twos ^ num: Toggles the bits of twos based on num.
+
+	(~ones): Ensures that if a bit is set in ones, it is reset in twos.
+
+	After processing all numbers, ones will hold the unique element that appears once.
+
+Dry run :-
+
+
+		num	ones (XOR)	twos (XOR)
+		 2	   10	            00
+		 2	   00	            10
+		 3	   11	            10
+		 2	   01	            00
+
+                 ones=3 so this will be answer
+
