@@ -1,0 +1,58 @@
+In this problem we have given the n so we have to return till the n how much 1 comes in the number after converting it to binary number.
+
+if n=2
+
+so we have to return in 0, 1 and 2 how many 1's came.
+
+so first convert  each  in binary
+
+0= 0000
+1= 0001
+2= 0010
+
+so output will be [0,1,1]
+
+in 0 there is no one present
+in 1 there is only one present
+in 2 there is only one present
+
+So lets code it :-
+
+class Solution {
+    public int calBits(int x)
+    {
+        int calBitCount=0;
+        for(int i=0; i<32;i++)
+        {
+            int mask=(1<<i);
+
+            if ((x & mask) != 0) calBitCount++;
+
+        }
+        return calBitCount;
+    }
+    public int[] countBits(int n) {
+        int[] ans= new int[n+1];
+        for(int i=0; i<=n;i++)
+        {
+           ans[i]=calBits(i);
+        }
+        return ans;
+    }
+}
+
+explanation of code :-
+
+	i) countBit Function:
+
+		Takes an integer n as input and iterates 		over 32 bits.
+
+		Uses mask = (1 << i) to check if the i-th 		bit is set.
+
+		If (n & mask) != 0, it means the bit is 1, 		so we increment the count.
+
+	ii) countBits Function:
+
+		Initializes a vector ans of size n + 1 to 		store the result.
+
+		Iterates through numbers 0 to n, calling 		countBit(i) to compute the number of 1s in 		i.
