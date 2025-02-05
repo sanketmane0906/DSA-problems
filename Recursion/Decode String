@@ -1,0 +1,101 @@
+Imagine you have an encoded string that follows a specific format:
+k[encoded_string]
+
+k is a number that tells you how many times to repeat the encoded_string inside the brackets.
+The encoded_string can be a simple string or even another encoded string (nested).
+Examples:
+
+"3[a]" should decode to "aaa" (repeat "a" 3 times).
+"2[bc]" should decode to "bcbc".
+"3[a2[c]]" should decode as follows:
+"a2[c]" becomes "acc" (because "2[c]" becomes "cc").
+Then "3[acc]" becomes "accaccacc".
+
+How the Code Works
+The code uses stacks to handle nested structures:
+
+Stacks Used:
+
+numStack: Keeps track of the numbers (k values).
+stringStack: Keeps track of the strings and markers (like the '[' character).
+Processing the String:
+
+Digits: When you see a digit, you build the full number (to handle cases like "12" or "100").
+'[' Character: When you see an opening bracket:
+Push the current number k onto numStack.
+Push the '[' marker onto stringStack.
+Reset k to 0 for the next number.
+Letters: If the character is a letter, push it onto stringStack.
+']' Character: When you see a closing bracket:
+Pop characters from stringStack until you reach the '[' marker, forming the substring to be repeated.
+Pop the '[' marker.
+Pop the number from numStack which tells you how many times to repeat the substring.
+Create the repeated string and push it back onto stringStack.
+Final Step:
+
+After processing the entire input string, combine everything left in stringStack to form the final decoded string.
+
+
+class Solution {
+    public String decodeString(String s) {
+        // Stack to keep track of repeat counts.
+        Stack<Integer> numStack = new Stack<>();
+        // Stack to keep track of characters and intermediate results.
+        Stack<String> stringStack = new Stack<>();
+
+        int k = 0; // To build the number (repeat count)
+
+        // Traverse through each character in the string.
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+
+            // If the character is a digit, build the complete number.
+            if (Character.isDigit(ch)) {
+                k = k * 10 + (ch - '0');
+                continue;
+            }
+
+            // When encountering an opening bracket,
+            // push the current number to numStack and '[' to stringStack.
+            if (ch == '[') {
+                numStack.push(k);
+                k = 0; // Reset k for future numbers.
+                stringStack.push(String.valueOf(ch));
+                continue;
+            }
+
+            // If the character is a letter, push it directly to stringStack.
+            if (ch != ']') {
+                stringStack.push(String.valueOf(ch));
+                continue;
+            }
+
+            // When encountering a closing bracket:
+            // Build the string inside the current brackets.
+            StringBuilder temp = new StringBuilder();
+            while (!stringStack.peek().equals("[")) {
+                temp.insert(0, stringStack.pop());
+            }
+            // Pop the '[' marker.
+            stringStack.pop();
+
+            // Get the number of times to repeat the string.
+            int count = numStack.pop();
+            StringBuilder replacement = new StringBuilder();
+            // Append the string 'count' times.
+            for (int j = 0; j < count; j++) {
+                replacement.append(temp);
+            }
+            // Push the repeated substring back onto the stringStack.
+            stringStack.push(replacement.toString());
+        }
+
+        // Build the final result from the stringStack.
+        StringBuilder result = new StringBuilder();
+        while (!stringStack.isEmpty()) {
+            result.insert(0, stringStack.pop());
+        }
+
+        return result.toString();
+    }
+}
