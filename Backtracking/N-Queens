@@ -1,0 +1,184 @@
+N queens problem asked by Amazon, uber, Facebook, Apple
+
+We have to return the possible formation where we can put the queens  
+
+
+for placing queens we have 3 set of rules 
+
+every row has 1 queen
+every column has 1 queen
+none of one queen can kill other queen
+
+In chess queen can attack in 8 direction.
+
+So we have to place queen like no one queen can kill other queen
+
+we are trying to fill by column wise
+
+code explanation :-
+
+Step-by-Step Breakdown of Code
+1. Initialize Board
+We first create an empty chessboard where every cell is filled with '.' (which means no queen is placed yet).
+
+
+vector<string> board(n, string(n, '.'));
+
+Example of n=4
+
+....
+....
+....
+....
+
+2. Tracking Attack Positions
+We use three arrays to track where queens are placed:
+
+leftrow[n] → Checks if a row is already occupied.
+upperdiagonal[2n-1] → Checks the upper diagonal (/).
+lowerdiagonal[2n-1] → Checks the lower diagonal (\).
+Each queen must be placed safely without violating these constraints.
+
+3. Backtracking Function (solve)
+We place a queen column by column (col starts from 0).
+
+If a queen can be placed safely, we:
+Mark the position in the board.
+Mark the attack arrays (leftrow, upperdiagonal, lowerdiagonal).
+Move to the next column (col + 1).
+If all queens are placed, store the solution.
+Undo the move (Backtrack) and try the next possible row.
+
+Step-by-Step Execution with n = 4
+Step 1: Start with an Empty Board
+
+....
+....
+....
+....
+
+We start from col = 0 and try placing a queen in different rows.
+
+Step 2: Place First Queen in Column 0
+We place a queen at (0,0):
+
+Q...
+....
+....
+....
+
+Mark leftrow[0] = 1
+Mark upperdiagonal[3 + 0 - 0] = 1 (upperdiagonal[3])
+Mark lowerdiagonal[0 + 0] = 1 (lowerdiagonal[0])
+Now, we move to col = 1.
+
+Step 3: Place Second Queen in Column 1
+Trying (0,1): ❌ Blocked by (0,0). Trying (1,1): ❌ Blocked by lower diagonal. Trying (2,1): ✅ Safe, place the queen:
+
+Q...
+....
+.Q..
+....
+
+Mark leftrow[2] = 1
+Mark upperdiagonal[3 + 1 - 2] = 1 (upperdiagonal[2])
+Mark lowerdiagonal[2 + 1] = 1 (lowerdiagonal[3])
+Move to col = 2.
+
+Step 4: Place Third Queen in Column 2
+Trying (0,2): ❌ Blocked. Trying (1,2): ❌ Blocked. Trying (2,2): ❌ Blocked. Trying (3,2): ✅ Safe, place queen:
+
+Q...
+....
+.Q..
+..Q.
+Move to col = 3.
+
+Step 5: Place Fourth Queen in Column 3
+Trying (0,3): ❌ Blocked. Trying (1,3): ✅ Safe, place queen:
+
+Q...
+...Q
+.Q..
+..Q.
+All 4 queens are placed. Store this as a valid solution.
+
+Step 6: Backtrack and Try Different Paths
+Now, we backtrack to find other possible solutions by removing queens and trying different rows.
+
+Remove (1,3)
+Go back to (3,2), remove it
+Try other positions for (2,1)
+Continue this until all possibilities are checked
+
+Final Output :
+
+Solution 1:
+. Q . .
+. . . Q
+Q . . .
+. . Q .
+
+Solution 2:
+. . Q .
+Q . . .
+. . . Q
+. Q . .
+
+
+Why Use leftrow, upperdiagonal, and lowerdiagonal?
+Instead of looping through the board every time, we check in O(1) time if a position is safe.
+This improves efficiency and avoids unnecessary calculations.
+
+code :-
+
+class Solution {
+public:
+    void solve(int col, vector<string> &board, vector<vector<string>>& ans, vector<int>& leftrow, vector<int>& upperdiagonal, vector<int>& lowerdiagonal, int n)
+    {
+        if(col==n)
+        {
+            ans.push_back(board);
+            return;
+        }
+
+        for(int row=0; row<n; row++)
+        {
+            if(leftrow[row]==0 && upperdiagonal[n-1+col-row]==0 && lowerdiagonal[row+col]==0)
+            {
+                board[row][col]='Q';
+                leftrow[row]=1;
+                lowerdiagonal[row+col]=1;
+                upperdiagonal[n-1+col-row]=1;
+
+                solve(col+1, board, ans, leftrow, upperdiagonal,lowerdiagonal, n);
+
+                 board[row][col]='.';
+                leftrow[row]=0;
+                lowerdiagonal[row+col]=0;
+                upperdiagonal[n-1+col-row]=0;
+
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        
+        vector<vector<string>>ans;
+        vector<string> board(n);
+
+        string s(n, '.');
+
+        for(int i=0; i<n; i++)
+        {
+            board[i]=s;
+        }
+
+        vector<int> leftrow(2*n-1, 0);
+        vector<int> upperdiagonal(2*n-1, 0);
+        vector<int> lowerdiagonal(2*n-1, 0);
+
+        solve(0, board, ans, leftrow, upperdiagonal, lowerdiagonal, n);
+
+        return ans;
+    }
+};
