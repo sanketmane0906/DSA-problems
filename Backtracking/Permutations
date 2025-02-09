@@ -1,0 +1,38 @@
+Given an array nums of distinct integers, return all the possible permutations.
+You can return the answer in any order.
+
+Input: nums = [1,2,3]
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+
+So lets code :-
+
+import java.util.*;
+
+class Solution {
+    public void permuteHelper(List<Integer> tempList, List<List<Integer>> result, int[] nums, boolean[] visited) {
+        if (tempList.size() == nums.length) {
+            result.add(new ArrayList<>(tempList));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (visited[i]) continue; // Skip if already used
+
+            tempList.add(nums[i]);
+            visited[i] = true;
+            
+            permuteHelper(tempList, result, nums, visited);
+            
+            // Backtrack
+            tempList.remove(tempList.size() - 1);//removiong last element which we added
+            visited[i] = false;
+        }
+    }
+
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        boolean[] visited = new boolean[nums.length];
+        permuteHelper(new ArrayList<>(), result, nums, visited);
+        return result;
+    }
+}
