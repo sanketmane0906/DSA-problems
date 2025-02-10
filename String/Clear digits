@@ -1,0 +1,57 @@
+You're given a string s that consists of lowercase English letters and digits. 
+Your task is to remove all digits by repeatedly deleting the first digit and the closest non-digit character to its left. 
+You need to return the resulting string after performing these deletions.
+
+Example
+	Input: s = "cb34"
+
+	Step 1: Delete the first digit ('3') and its closest non-digit character to the left ('b'), resulting in s = "c4"
+
+	Step 2: Delete the next digit ('4') and its closest non-digit character to the left ('c'), resulting in s = ""
+
+Output: ""
+
+so lets code :-
+
+class Solution {
+    public String clearDigits(String s) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isDigit(s.charAt(i))) {
+                sb.append(s.charAt(i));
+            } else {
+                sb.deleteCharAt(sb.length() - 1);
+            }
+        }
+        return sb.toString();
+    }
+}
+
+Explanation of the Code
+	Initialization:
+
+		The code initializes a StringBuilder object sb to store the resulting string after removing digits and their adjacent characters.
+
+		Iterating Through the String:
+
+		The for loop iterates through each character in the input string s.
+
+	Checking for Digits:
+
+		Inside the loop, the code checks if the current character s.charAt(i) is not a digit using Character.isDigit(s.charAt(i)).
+
+		If the character is not a digit, it is appended to the StringBuilder sb using sb.append(s.charAt(i)).
+
+	Removing Adjacent Character:
+
+		If the character is a digit, the code deletes the last character added to the StringBuilder sb using sb.deleteCharAt(sb.length() - 1). This simulates removing the digit and 		its closest non-digit character to the left.
+
+	Returning the Result:
+
+		After the loop finishes, the code returns the final string by converting the StringBuilder sb to a string using sb.toString().
+
+Edge Cases
+	No Digits: If the input string has no digits, the original string remains unchanged.
+
+	All Digits: If the input string consists only of digits, the result will be an empty string.
