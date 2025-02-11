@@ -1,0 +1,63 @@
+/*
+In the given problem we have given the char array and we have to reverse that array
+
+So here 2 approaches are here  
+     approach                     time compplexity                  space complexity
+
+1)   using stack                       O(n)+O(n)=O(n)                      O(n)
+                                       n is size of array                  n is size of array
+
+2)   using two pointers                O(n/2)=O(n)                                O(1)
+
+
+Company tags :-
+
+✅ Amazon
+✅ Google
+✅ Microsoft
+✅ Meta (Facebook)
+✅ Apple
+
+*/
+
+//********************************************************* Approach No 1 **********************************************************************
+
+class Solution {
+    public void reverseString(char[] s) {
+        
+        Stack<Character> st= new Stack<>();
+
+        for(int i=0; i<s.length; i++)
+        {
+            st.add(s[i]);
+        }
+
+         int i=0;
+        while(!st.isEmpty())
+        {
+            s[i++]=st.pop();
+        }
+      
+    }
+}
+
+//*******************************************************Approach No 2 ********************************************************************************
+
+class Solution {
+    public void reverseString(char[] s) {
+       
+      int i=0;
+      int j=s.length-1;
+
+      while(i<=j)
+      {
+        char ch=s[i];
+        s[i]=s[j];
+        s[j]=ch;
+
+        i++;
+        j--;
+      }
+
+    }
+}
