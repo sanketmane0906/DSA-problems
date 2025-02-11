@@ -1,0 +1,45 @@
+/* 
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+
+the time complexity of solution is 2^n because we have to generate n pairs of parenthesis so our char array size will be 2*n 
+Company tags :-
+✅ Google
+✅ Meta (Facebook)
+✅ Amazon
+✅ Microsoft
+✅ Apple
+✅ Adobe
+
+*/
+
+class Solution {
+    public void balpara(List<String>result, char[] ch, int n, int i, int open, int close)
+    {
+        if(i==ch.length)
+        {
+            result.add(new String(ch));
+        }
+
+        if(open<n)
+        {
+            ch[i]='(';
+            balpara(result, ch, n, i+1, open+1, close);
+        }
+
+        if(close<open)
+        {
+            ch[i]=')';
+            balpara(result, ch, n, i+1, open, close+1);
+        }
+    }
+    public List<String> generateParenthesis(int n) {
+        
+        List<String> result= new ArrayList<>();
+        char ch[]= new char[2*n];
+
+        balpara(result, ch, n, 0,0,0);
+        return result;
+    }
+}
