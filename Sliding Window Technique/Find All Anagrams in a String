@@ -1,0 +1,77 @@
+/*
+Given two strings s and p, return an array of all the start indices of p's 
+anagrams in s. You may return the answer in any order.
+
+Example 1:
+
+Input: s = "cbaebabacd", p = "abc"
+Output: [0,6]
+Explanation:
+The substring with start index = 0 is "cba", which is an anagram of "abc".
+The substring with start index = 6 is "bac", which is an anagram of "abc".
+
+We have two strings:
+
+s → a long string
+p → a short string
+We need to find all starting positions in s where a substring (of the same length as p) is an anagram of p.
+
+What is an Anagram?
+An anagram means the characters are the same but in a different order.
+
+s = "cbaebabacd"
+p = "abc"
+
+We check all substrings of length 3 (same as p):
+
+"cba" ✅ → an anagram of "abc" → index 0
+"bae" ❌
+"aeb" ❌
+"eba" ❌
+"bab" ❌
+"aba" ❌
+"bac" ✅ → an anagram of "abc" → index 6
+Output: [0,6]
+*/
+//************************************************* Code in JAVA *****************************************************************
+
+class Solution {
+    public List<Integer> findAnagrams(String s, String p) {
+        
+        List<Integer> phash= new ArrayList<>(Collections.nCopies(26,0));
+        List<Integer> shash= new ArrayList<>(Collections.nCopies(26, 0));
+        List<Integer> result= new ArrayList<>();
+
+        int window=p.length();
+        int length=s.length();
+        if(length<window) return result;
+
+        int left=0;
+        int right=0;
+
+        while(right<window)
+        {
+            phash.set(p.charAt(right)-'a', phash.get(p.charAt(right)-'a')+1);
+            shash.set(s.charAt(right)-'a', shash.get(s.charAt(right)-'a')+1);
+            right++;
+        }
+        right-=1; // After this loop, right moves one step ahead, making it point to the first character outside the window.
+
+        while(right<length)
+        {
+            if(phash.equals(shash))
+            {
+                result.add(left);
+            }
+            right++;   //going for next anagram
+
+            if(right!=length)    //after increamenting right checking is right is still in limit or going out of bound
+            {
+                shash.set(s.charAt(left)-'a', shash.get(s.charAt(left)-'a')-1);
+                shash.set(s.charAt(right)-'a', shash.get(s.charAt(right)-'a')+1);
+                left++;
+            }
+        }
+        return result;
+    }
+}
