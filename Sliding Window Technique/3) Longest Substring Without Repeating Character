@@ -1,0 +1,64 @@
+/*
+In this problem we have given a string and we have to return the maximum substring of uniqueue character
+
+Input: s = "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+
+So here we will use hashmap of character and integer and using it we will count frequency
+
+
+Initialization:
+      HashMap mp stores characters and their frequencies
+      left and right pointers start at 0
+      result tracks the maximum length found
+
+Main Process (outer while loop):
+      The right pointer moves through the string one character at a time until it reaches the end
+      For each position:
+            Gets the current character at right position
+            Updates its frequency in the HashMap
+            Then checks if this creates any duplicates
+
+Inner While Loop (handles duplicates):
+      If the current character r has frequency > 1 (meaning we have a duplicate):
+      Gets the character at left position
+      Reduces that character's frequency in the HashMap
+      Moves the left pointer right by 1
+      Continues this until no more duplicates exist
+
+Result Update:
+      After resolving duplicates, calculates current window size (right - left + 1)
+      Updates result if the current window is larger than previous maximum
+      Moves right pointer forward
+
+*/
+//******************************** Code in JAVA ***************************************************
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashMap<Character, Integer> mp= new HashMap<>();
+
+        int left=0;
+        int right=0;
+        int result=0;
+
+        while(right<s.length())
+        {
+            char r=s.charAt(right);
+            mp.put(r, mp.getOrDefault(r, 0)+1);
+
+            //when frequency is >1 mean there is duplicate we are removing it using left
+            while(mp.get(r)>1)
+            {
+                char l=s.charAt(left);
+                mp.put(l, mp.get(l)-1);
+                left++;
+            }
+
+            result=Math.max(result, right-left+1);
+            right++;
+        }
+        return result;
+    }
+}
