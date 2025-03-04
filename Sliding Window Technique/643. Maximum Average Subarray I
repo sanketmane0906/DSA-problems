@@ -1,0 +1,44 @@
+/*
+In this problem, we have an array nums, and we need to return the maximum average of a subarray of size k.
+
+Since we need to iterate over an array of size n while maintaining a fixed-size subarray, we use the Sliding Window Algorithm to optimize the process.
+
+Approach:
+First, we calculate the sum and average of the first subarray (first k elements).
+Then, we iterate over the remaining elements while sliding the window forward by one position at a time.
+As the window moves, we remove the first element of the previous window and add the new element at the current index.
+The starting index of the new window is calculated as i - k + 1. This gives  us the starting index of the current sliding window.
+When updating the sum, instead of removing nums[i - 1], we remove nums[i - k] because it represents the first element of the previous window.
+
+Some people think i - 1 should be used to remove the previous element, but that removes the last element of the previous window, not the first element of the previous window. That's why we use i - k. 🚀
+*/
+//-------------------------------------CODE IN JAVA ------------------------------------------------
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        
+        int sum=0;
+        double avg=0;
+
+        for(int i=0; i<k; i++)
+        {
+            sum+=nums[i];
+        }
+
+        avg=sum/(double)k;
+
+        for(int i=k; i<nums.length; i++)
+        {
+            sum-=nums[i-k];
+            sum+=nums[i];
+
+            avg=Math.max(avg, sum/(double)k);
+        }
+        return avg;
+    }
+}
+/*
+
+Time complexity :- O(K)+O(N) where "k" is size of window and "n" is size of array
+Space complexity :- O(1)
+
+*/
