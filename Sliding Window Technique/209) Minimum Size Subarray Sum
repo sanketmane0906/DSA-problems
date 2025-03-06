@@ -1,0 +1,42 @@
+/*
+Company tag :- 
+                Amazon
+                Google
+                Microsoft
+                Facebook (Meta)
+                Adobe
+                Bloomberg
+                Apple
+
+Initialize two pointers: start and end, both set to 0. Also, maintain a sum variable to store the sum of the current subarray.
+Expand the window: Move the end pointer and add nums[end] to sum.
+Shrink the window when sum >= target: Once sum is greater than or equal to target, update the minimum length and move start forward to try and reduce the window size while still meeting the condition.
+Continue until end reaches the last element.
+
+*/
+//-----------------------------------------CODE IN JAVA ------------------------------------------------------------------------------------
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        
+        int start=0;
+        int window=Integer.MAX_VALUE;
+
+        int sum=0;
+
+        for(int end=0; end<nums.length; end++)
+        {
+            sum+=nums[end];
+
+            while(sum>=target)
+            {
+                window=Math.min(window, end-start+1);
+                sum-=nums[start];
+                start++;
+            }
+        }
+
+        return window==Integer.MAX_VALUE? 0: window;
+    }
+}
+
+// Time Complexity :- O(N) where N is size of array
