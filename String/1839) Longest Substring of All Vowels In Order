@@ -1,0 +1,57 @@
+/*
+Company Tag :- 
+Google
+Amazon
+Microsoft
+Facebook (Meta)
+Adobe
+
+Longest Substring of All Vowels In Order 
+
+ it is one of the most simplest problem 
+here actually we are  coding on the base of test cases
+in this problem we have the string of word and form that word string we have to return the maxlen of the substring in which contain all vowels 
+
+so lets code it :- 
+
+*/
+
+//---------------------JAVA CODE ----------------------------
+
+import java.util.*;
+
+class Solution {
+    public int longestBeautifulSubstring(String word) {
+        Map<Character, Integer> mp = new HashMap<>();
+        int maxLen = 0;
+        int len = 0;
+        
+        for (int i = 0; i < word.length(); i++) {
+            if (i == 0) {
+                mp.put(word.charAt(i), mp.getOrDefault(word.charAt(i), 0) + 1);         //CASE 1 when i=0 mean we strat from here
+                len++;
+                continue;
+            }
+            
+            if (word.charAt(i) >= word.charAt(i - 1)) {
+                mp.put(word.charAt(i), mp.getOrDefault(word.charAt(i), 0) + 1);        //CASE 2 when we inserting char inside map when current char is greater or equal to previous
+                len++;
+            } else {
+                if (mp.containsKey('a') && mp.containsKey('e') && mp.containsKey('i') && mp.containsKey('o') && mp.containsKey('u')) {       //Here we check for first occurence of the substring who contain all vowels
+                    maxLen = Math.max(maxLen, len);
+                }
+                
+                len = 1;
+                mp.clear();                          //once we got that we will clear the map and then move forward in search of other substring
+                mp.put(word.charAt(i), 1);
+            }
+        }
+        
+        if (mp.containsKey('a') && mp.containsKey('e') && mp.containsKey('i') && mp.containsKey('o') && mp.containsKey('u')) {  //in last we will check for any other substring found whose length is more than the previous one
+            maxLen = Math.max(maxLen, len);           
+        }
+        
+        return maxLen;
+    }
+}
+
